@@ -12,51 +12,57 @@ const recipe = async function() {
   try{
     const x = await mongoose.connect(MONGODB_URI)
     console.log(`connected to ${x.connection.name}`)
-    //  deleteRecipe("Carrot Cake")
-    //  updateRecipe(220)
-    //  addRecipe()
-    //  addManyRecipe()
-    const y = await mongoose.disconnect()
-    console.log(`disconnected`)
+     deleteRecipe()
+     updateRecipe()
+     addRecipe()
+     addManyRecipe()
+     const y = await mongoose.disconnect()
+     console.log(`disconnected`)
   } catch (err){
     console.log(err)
   }
 }
 
-// const deleteRecipe = async function (delet){
-//   try{
-//     const recipe = await Recipe.deleteOne({title: delet})
-//   } catch(err){
-//     console.log(err)
-//   }
-// }
 
-// const updateRecipe = async function(duration) {
-//   try{
-//     const recipe = await Recipe.updateOne({duration: duration}, {duration: 100})
-//     console.log("updated to 100m")
-//   } catch(err){
-//     console.log(err)
-//   }
-// }
+const deleteRecipe = async function (delet){
+  try{
+    const recipe = await Recipe.deleteOne({title: delet})
+  } catch(err){
+    console.log(err)
+  }
+}
+
+const updateRecipe = async function(name) {
+  try{
+    const recipe = await Recipe.updateOne({title: name}, {duration: 100})
+    console.log("updated to 100m")
+  } catch(err){
+    console.log(err)
+  }
+}
+
+const addManyRecipe = async function(){
+  try{
+    const recipe = await Recipe.insertMany(data)
+  } catch(err){
+    console.log(err)
+  }
+}
+
+// const addManyRecipe() => Recipe.insertMany(data)
+//                               .then(user => console.log('The user is saved and its value is: ', user))
+//                               .catch(error => console.log('An error happened while saving a new user:', error));
+ 
 
 
+const addRecipe = async function() {
+  try {
+    const recipe = await Recipe.create({ title: "Empanadas", cuisine: "Argentina" });
+  } catch (err){
+    console.log(err)
+  }
+}
 
-// const addRecipe = async function() {
-//   try {
-//     const recipe = await Recipe.create({ title: "Empanadas", cuisine: "Argentina" });
-//   } catch (err){
-//     console.log(err)
-//   }
-// }
-
-// const addManyRecipe = async function(){
-//   try{
-//     const recipe = await Recipe.insertMany(data)
-//   } catch(err){
-//     console.log(err)
-//   }
-// }
 
 
 recipe()
